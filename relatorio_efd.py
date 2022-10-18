@@ -4,6 +4,7 @@ import pandas as pd
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 from xlsxwriter.workbook import Workbook
+import io
 
 
 
@@ -47,6 +48,24 @@ class Sped:
         self.cursor.execute(consulta, (none_1, *args))
         self.conexao.commit()
 
+    def verificar_assinatura(self):
+
+        with open('sped com assinatura.txt', 'r', encoding="ANSI") as file:
+            #reader = csv.reader(x.replace('\0', '|') for x in file)
+            reader = csv.reader(file,delimiter="|")
+            self.rows = list(reader)
+            for k in self.rows:
+                #print(k[1])
+            #if (k[1] == "C100" and k[2] == "0" and k[3] == "1") or k[1] == "C170":
+                if k[1]=="9999":
+                    qtd =  k[2]
+        i=0
+
+        while i<= qtd:
+            print(k[1])
+            i+=1
+
+
     def importar_arquivo(self):
         Tk().withdraw()  # Isto torna oculto a janela principal
         arquivo_sped = askopenfilename()
@@ -54,8 +73,8 @@ class Sped:
 
     def tratamento_arquivo(self):
         Tk().withdraw()
-        arquivo_sped = askopenfilename()
-        with open(arquivo_sped, 'r', encoding="utf8") as file:
+        arquivo_sped = 'sped com assinatura.txt'
+        with open(arquivo_sped, 'r', encoding="ANSI") as file:
             reader = csv.reader(file, delimiter='|')
             self.rows = list(reader)
             self.indicec100 = []
@@ -152,7 +171,8 @@ class Sped:
 if __name__ == "__main__":
 
 
-    Sped('sped_relatorio.db').exportar_excel()
+    #Sped('sped_relatorio.db').tratamento_arquivo()
+    Sped('sped_relatorio.db').verificar_assinatura()
 
 
 
