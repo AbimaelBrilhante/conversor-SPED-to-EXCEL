@@ -83,8 +83,9 @@ class Sped:
 
             # FILTRAGEM DOS REGISTROS C100 (DE ENTRADA) E C170 DO ARQUIVO
             for efd_filt in self.rows:
-                if (efd_filt[1] == "C100" and efd_filt[2] == "0" and efd_filt[3] == "1") or efd_filt[1] == "C170":
-                    self.efd.append(efd_filt)
+                if efd_filt[0] == "":
+                    if (efd_filt[1] == "C100" and efd_filt[2] == "0" and efd_filt[3] == "1") or efd_filt[1] == "C170":
+                        self.efd.append(efd_filt)
 
             # NUMERO DA LINHA QUE SE ENCONTRA O REGISTRO C100
             for indice, reg100 in enumerate(self.efd):
@@ -172,7 +173,7 @@ if __name__ == "__main__":
 
 
     #Sped('sped_relatorio.db').tratamento_arquivo()
-    Sped('sped_relatorio.db').verificar_assinatura()
+    Sped('sped_relatorio.db').tratamento_arquivo()
 
 
 
