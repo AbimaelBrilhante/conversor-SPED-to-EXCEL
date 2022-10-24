@@ -55,7 +55,7 @@ class Sped:
     def tratamento_arquivo(self):
         Tk().withdraw()
         arquivo_sped = askopenfilename()
-        with open(arquivo_sped, 'r', encoding="utf8") as file:
+        with open(arquivo_sped, 'r', encoding="ANSI") as file:
             reader = csv.reader(file, delimiter='|')
             self.rows = list(reader)
             self.indicec100 = []
@@ -64,7 +64,7 @@ class Sped:
 
             # FILTRAGEM DOS REGISTROS C100 (DE ENTRADA) E C170 DO ARQUIVO
             for efd_filt in self.rows:
-                if efd_filt[0] == "":
+                if  efd_filt != [] and efd_filt[0] == "":
                     if (efd_filt[1] == "C100" and efd_filt[2] == "0" and efd_filt[3] == "1") or efd_filt[1] == "C170":
                         self.efd.append(efd_filt)
 
